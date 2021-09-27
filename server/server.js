@@ -1,13 +1,14 @@
 const express = require('express');
 const cors = require('cors');
-const server = express();
-server.use(express.json());
-server.use(cors());
+const app = express();
+app.use(express.json());
+app.use(cors());
 
 
 class Tamagotchi{
-    constructor(name, happiness =5 , hunger = 5){
+    constructor(name, type=dog, happiness =5 , hunger = 5){
         this.name = name;
+        this.type = type;
         this.happiness = happiness;
         this.hunger = hunger;
     }
@@ -24,10 +25,20 @@ class Tamagotchi{
     }
 }
 
-server.post('/new', (req,res) => {
-    let data = req.body;
-    let name = req.params.petName;
-    let type = req.params.petType;
+let animal;
+
+app.get('/', (req,res) => {
+    res.json({message:"Hi"});
+})
+
+app.post('/new', (req,res) => {
+    let data = {...req.params};
+    console.log(req);
+    let name = req.body.petName;
+    let type = req.body.petType;
+    res.json({ message: "Done"});
+    console.log(`name is ${name} and type is ${type}`)
+    animal = new Tamagotchi(name, type, 5, 5)
 })
 
 
@@ -45,3 +56,5 @@ console.log(Steve.hunger);
 Steve.play();
 console.log(Steve.happiness)
 Steve.play();
+
+module.exports = app;
