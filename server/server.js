@@ -1,15 +1,25 @@
 const express = require('express');
 const cors = require('cors');
-const { get } = require('http');
-const { join } = require('path/posix');
 const app = express();
 app.use(express.json());
 app.use(cors());
 
-var count = 1;
 
+// CORS HEADERS::
+app.use((req, res, next) => {
+    res.setHeader("Access-Control-Allow-Origin", "*")
+    res.header(
+        "Access-Control-Allow-Headers",
+        "Origin, X-Requested-With, Content-Type, Accept"
+    );
+    next()
+});
+
+
+var count = 1;
+let animal = [];
 class Tamagotchi{
-    constructor(name, type=dog, happiness =5 , hunger = 5, dead=false){
+    constructor(name="norbert", type="slug", happiness =5 , hunger = 5, dead=false){
         this.name = name;
         this.type = type;
         this.happiness = happiness;
@@ -33,33 +43,31 @@ class Tamagotchi{
 
 
 app.get('/', (req,res) => {
-    allTamagotchi = getTamagotchi();
-    console.log(allTamagotchi.json());
+    // allTamagotchi = getTamagotchi();
+    // console.log(allTamagotchi);
+    res.json({animal});
 })
 
 app.post('/new', (req,res) => {
-    let data = {...req.params};
-    console.log(req);
-    let name = req.body.petName;
-    let type = req.body.petType;
-    console.log(`name is ${name} and type is ${type}`)
-    let str = "let animal_" + count +" = new Tamagotchi( " + "name, " + "type" + ", 5, 5);"
-    eval(str);
-    res.json = (getTamagotchi());
+    // let data = {...req.params};
+    // console.log(req);
+    let animalname = req.body.petName;
+    let animaltype = req.body.petType;
+
+    if (animalname === ""){
+        animalname ="norbert";
+        animaltype = "slug";
+    }
+    // console.log(`name is ${animalname} and type is ${animaltype}`)
+    animal[count]= new Tamagotchi(animalname, animaltype, 5, 5);
+    res.json(animal[count]);
+    console.log(animal[count]);
     count ++;
 
 })
 
 
-if (Tamagotchi.hunger === 10){
-    console.log(`${Tamagotchi.name} has died`);
-}
-
-if (Tamagotchi.happiness === 0){
-    console.log(`${Tamagotchi.name} has run away`);
-}
-
-let animal_0 = new Tamagotchi('Steve', "Dog",'5','5');
+animal[0] = new Tamagotchi("Steve", "chicken", 10, 0, false);
 
 function isdead(name, hunger, happiness){
     if (hunger >=10){
@@ -67,25 +75,36 @@ function isdead(name, hunger, happiness){
         console.log(`${name} has died`)
     }
 }
-count=1;
-let animal_1 = new Tamagotchi('bob','moose','6','6',true);
 
-console.log(animal_0.hunger);
-animal_0.play();
-console.log(animal_0.happiness)
-animal_0.play();
 
-getTamagotchi()
+// console.log(animal_0.hunger);
+// animal_0.play();
+// console.log(animal_0.happiness)
+// animal_0.play();
+
+// getTamagotchi()
 
 function getTamagotchi(){
     let allTamagotchi = [];
     for (let a=0; a <= count; a++){
-        let tamagotchi;
-        let str = "tamagotchi = animal_" + a + ";";
-        eval(str);
+        let tamagotchi = animal[a];
         allTamagotchi.push(tamagotchi);
     }
-    return allTamagotchi.json();
+    return allTamagotchi;
 }
+
+// function testAdd(name,type){
+//     let animalname = name;
+//     let animaltype = type;
+//     console.log(`name is ${animalname} and type is animal ${type}`)
+//     animal[count]= new Tamagotchi(animalname, animaltype, 5, 5);
+//     console.log(animal[count]);
+//     // let allTamagotchi = getTamagotchi;
+//     console.log(animal)
+//     count ++;
+// }
+
+
+// testAdd("bob","racoon")
 
 module.exports = app;
