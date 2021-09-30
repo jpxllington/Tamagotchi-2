@@ -1,0 +1,61 @@
+#newTamagotchi{
+    display: none;
+    grid-column-start: 3;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#petname, #type, #submit{
+    height: 40%;
+    border-radius: 10px;
+    border: 0px;
+}
+
+#navbar{
+    width: 100vw;
+    height: 100px;
+    position: fixed;
+    background-color: darkgray;
+    box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.6);
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+
+}
+
+#new{
+    grid-column-start: 2;
+    height: 100%;
+    border: 0px;
+    border-radius: 10px;
+    background-color: darkgray;
+    
+}
+
+body{
+    padding: 0px 0px;
+    margin: 0px 0px
+}
+
+#title{
+    grid-column-start: 1;
+    text-align: center;
+    padding: 30px;
+    height: 100%;
+    margin: 0px;
+}
+
+.navbarinput{
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+label{
+    padding-right: 5px;
+}
+
+#tamagotchiHolder{
+    background-color: darkgreen;
+    height: 100vh;
+}
