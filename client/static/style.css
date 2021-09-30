@@ -16,7 +16,7 @@
     height: 100px;
     position: fixed;
     background-color: darkgray;
-    box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.6);
+    box-shadow: 5px 10px 20px rgba(0, 0, 0, 0.6);
     display: grid;
     grid-template-columns: repeat(3, 1fr);
 
@@ -56,6 +56,55 @@ label{
 }
 
 #tamagotchiHolder{
-    background-color: darkgreen;
+
     height: 100vh;
+    padding-top: 120px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-content: flex-start;
+
 }
+
+.parentDiv{
+
+    border: 3px solid red;
+    width: 30%;
+    margin: 20px;
+    border-radius: 20px;
+    display: grid;
+    grid-template-rows: 50% 10% 20% 20%;
+    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.6);
+}
+
+.photo{
+    max-height: 100%;
+    max-width: 50%;
+    grid-row-start: 1;
+    align-self: center;
+    justify-self: center;
+}
+
+.animalname{
+    grid-row-start: 2;
+    padding: 0px 15px;
+}
+
+.stats{
+    grid-row-start: 3;
+    padding: 0px 15px;
+}
+
+.buttons{
+    grid-row-start: 4;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.button{
+    height: 40%;
+    width: 20%;
+    font-size: 15px;
+}
+
