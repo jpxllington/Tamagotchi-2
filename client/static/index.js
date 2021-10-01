@@ -1,5 +1,5 @@
 
-
+var petnumber;
 const create = document.querySelector("#new");
 
 create.addEventListener('click', () =>{
@@ -21,6 +21,7 @@ async function getTamagotchi(){
     
     console.log(tamagotchis);
     console.log(tamagotchis.animal.length)
+    petnumber = tamagotchis.animal.length;
     for (let a = 0; a < tamagotchis.animal.length; a++){
         console.log(tamagotchis.animal[a]['name'])
         let animalName = tamagotchis.animal[a]['name'];
@@ -30,10 +31,10 @@ async function getTamagotchi(){
         let animalDead = tamagotchis.animal[a]['dead']; 
         buildAnimal(animalName, animalType, animalHunger, animalHappiness, animalDead, a)
     }
-
+    return petnumber;
 }
 
-getTamagotchi();
+petnumber = getTamagotchi();
 
 function buildAnimal(name, type, hunger, happiness, dead, a=0){
     let image;
@@ -102,6 +103,22 @@ function buildAnimal(name, type, hunger, happiness, dead, a=0){
     parentDiv.append(img, nameplace, stats, buttons);
 
     document.querySelector("#tamagotchiHolder").append(parentDiv);
+
+}
+
+
+let button = [];
+console.log(petnumber);
+for(let a = 0; a <= petnumber ; a++){
+    button[a] = document.querySelector(`#feed${a}`);
+    console.log("feed button identified")
+    button[a].addEventListener('click', async (a) => {
+        console.log('feed button added')
+        await feedpet(a)
+    });
+
+    // document.querySelector(`#play${a}`).addEventListener('click', playpet(a));
+    // document.querySelector(`#kill${a}`).addEventListener('click', killpet(a));
 }
 
 async function newAnimal(petName, petType){
@@ -130,5 +147,17 @@ async function newAnimal(petName, petType){
     // .catch((error) => { console.error('Error:',error)})
 }
 
-document.querySelector('.button').addEventListener('mouseover', () => {document.querySelector('.button').style.backgroundColor = "lightgray"});
+async function feedpet(pet){
+    let data = {pet: pet};
+    console.log("feeding")
+    response = await fetch('http://localhost:5000/feed',{
+        method: "POST",
+        body: JSON.stringify(data),
+                    headers: {'Content-Type': 'application/json'}
+    })
+
+    getTamagotchi();
+}
+
+// document.querySelector(button).addEventListener('mouseover', () => {document.querySelector('.button').style.backgroundColor = "lightpink"});
 

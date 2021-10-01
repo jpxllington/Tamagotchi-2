@@ -76,35 +76,10 @@ function isdead(name, hunger, happiness){
     }
 }
 
-
-// console.log(animal_0.hunger);
-// animal_0.play();
-// console.log(animal_0.happiness)
-// animal_0.play();
-
-// getTamagotchi()
-
-function getTamagotchi(){
-    let allTamagotchi = [];
-    for (let a=0; a <= count; a++){
-        let tamagotchi = animal[a];
-        allTamagotchi.push(tamagotchi);
-    }
-    return allTamagotchi;
-}
-
-// function testAdd(name,type){
-//     let animalname = name;
-//     let animaltype = type;
-//     console.log(`name is ${animalname} and type is animal ${type}`)
-//     animal[count]= new Tamagotchi(animalname, animaltype, 5, 5);
-//     console.log(animal[count]);
-//     // let allTamagotchi = getTamagotchi;
-//     console.log(animal)
-//     count ++;
-// }
-
-
-// testAdd("bob","racoon")
+app.post('http://localhost:5000/feed', (req,res) => {
+    // pet = req.pet;
+    // console.log(pet);
+    res.json({message:"hello"})
+})
 
 module.exports = app;
