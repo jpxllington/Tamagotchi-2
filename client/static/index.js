@@ -104,22 +104,28 @@ function buildAnimal(name, type, hunger, happiness, dead, a=0){
 
     document.querySelector("#tamagotchiHolder").append(parentDiv);
 
+    addButtons();
 }
 
 
 let button = [];
 console.log(petnumber);
-for(let a = 0; a <= petnumber ; a++){
-    button[a] = document.querySelector(`#feed${a}`);
-    console.log("feed button identified")
-    button[a].addEventListener('click', async (a) => {
-        console.log('feed button added')
-        await feedpet(a)
-    });
+async function addButtons() {
+    for(let a = 0; a < petnumber ; a++){
+        console.log("feed button identified");
+        // console.log(button[a])
+        document.querySelector(`#feed${a}`).addEventListener('click', () => {
+            console.log('feed button added');
+            feedpet(a)
+        });
+        
+        // document.querySelector(`#play${a}`).addEventListener('click', playpet(a));
+        // document.querySelector(`#kill${a}`).addEventListener('click', killpet(a));
+    }
 
-    // document.querySelector(`#play${a}`).addEventListener('click', playpet(a));
-    // document.querySelector(`#kill${a}`).addEventListener('click', killpet(a));
 }
+
+
 
 async function newAnimal(petName, petType){
     let data = {petName: petName,petType: petType}
@@ -156,8 +162,11 @@ async function feedpet(pet){
                     headers: {'Content-Type': 'application/json'}
     })
 
-    getTamagotchi();
+    document.querySelector('#tamagotchiHolder').innerHTML = "";
+    setTimeout(getTamagotchi(),500);
 }
 
+
+setTimeout(addButtons,5000);
 // document.querySelector(button).addEventListener('mouseover', () => {document.querySelector('.button').style.backgroundColor = "lightpink"});
 
